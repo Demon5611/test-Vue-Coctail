@@ -5,15 +5,16 @@ import axios from 'axios';
 
 export const useCocktailStore = defineStore('cocktail', {
   state: () => ({
-    cocktail: reactive({ idDrink: '', strDrink: '', strCategory: '' }),
+    cocktails: reactive([]),
   }),
   actions: {
-    async fetchCocktail() {
+    async fetchCocktails() {
       try {
         const response = await axios.get('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita');
         const data = response.data;
+        console.log('data===>', data);
         if (data.drinks && data.drinks.length > 0) {
-          Object.assign(this.cocktail, data.drinks[0]);
+          this.cocktails = reactive(data.drinks);
         } else {
           console.error('No drinks found for the specified search term');
         }
