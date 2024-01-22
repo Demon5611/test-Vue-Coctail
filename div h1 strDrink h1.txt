@@ -1,0 +1,90 @@
+<div>
+<h1>strDrink</h1>
+
+strCategory
+strAlcohplic
+strGlass
+
+<h3>instructions:</h3>
+strinstructions
+<h3>List of ingridients:</h3>
+<span>strMeasure1</span>  <span>strIngredient1</span>
+<span>strMeasure2</span>  <span>strIngredient2</span>
+<span>strMeasureN</span>  <span>strIngredientN</span>
+
+
+<div>strDrinkThumb</div>
+</div>
+======================
+<template>
+  <div>
+    <h1>strDrink</h1>
+
+    <div>
+      <p>Category: {{ cocktail.strCategory }}</p>
+      <p>Alcoholic: {{ cocktail.strAlcoholic }}</p>
+      <p>Glass: {{ cocktail.strGlass }}</p>
+    </div>
+
+    <h3>Instructions:</h3>
+    <p>{{ cocktail.strInstructions }}</p>
+
+    <h3>List of Ingredients:</h3>
+    <ul>
+      <li v-for="(measure, index) in ingredientMeasures" :key="index">
+        <span>{{ measure }}</span> <span>{{ cocktail[`strIngredient${index + 1}`] }}</span>
+      </li>
+    </ul>
+
+    <div>
+      <img :src="cocktail.strDrinkThumb" alt="Cocktail Thumbnail" />
+    </div>
+  </div>
+</template>
+
+<script setup>
+import axios from 'axios';
+import { createPinia, defineStore } from 'pinia';
+import { computed, onMounted } from 'vue';
+
+const pinia = createPinia();
+
+const useCocktailStore = defineStore('cocktail', {
+  state: () => ({
+    cocktail: {},
+  }),
+  actions: {
+    async fetchCocktail() {
+      try {
+        const response = await axios.get('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita');
+        const data = response.data;
+        console.log('data===>',data)
+        this.cocktail = data.drinks[0];
+      } catch (error) {
+        console.error('Error fetching cocktail data:', error);
+      }
+    },
+  },
+});
+
+onMounted(() => {
+  useCocktailStore().fetchCocktail();
+});
+
+const ingredientMeasures = computed(() => {
+  const measures = [];
+  for (let i = 1; i <= 15; i++) {
+    const measure = cocktail[`strMeasure${i}`];
+    const ingredient = cocktail[`strIngredient${i}`];
+    if (measure && ingredient) {
+      measures.push(`${measure} ${ingredient}`);
+    }
+  }
+  return measures;
+});
+</script>
+
+<style scoped>
+/* Your styles here */
+</style>
+
