@@ -6,6 +6,10 @@
       <p v-if="form.data.strCategory">Category: {{ form.data.strCategory }}</p>
     </div>
 
+    <div>
+      <img v-if="form.data && form.data.strDrinkThumb" :src="form.data.strDrinkThumb" alt="Cocktail Thumbnail" />
+    </div>
+
     <h3>List of Ingredients:</h3>
     <ul>
       <li v-for="(measure, index) in ingredientMeasures" :key="index">
@@ -26,6 +30,7 @@ const form = ref({
   data: {
     strDrink: '',
     strCategory: '',
+    strDrinkThumb: '', // Add the strDrinkThumb property for the cocktail image URL
   },
 });
 

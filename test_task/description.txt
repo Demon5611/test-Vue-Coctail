@@ -3,7 +3,8 @@
 Пример схематичного интерфейса приложения изображен в app_example.png
 
 Исходные данные:
-- Всю необходимую информацию запрашиваем по GET-запросу: https://www.thecocktaildb.com/api/json/v1/1/search.php?s=<cocktail_code>
+- Всю необходимую информацию запрашиваем по GET-запросу: 
+https://www.thecocktaildb.com/api/json/v1/1/search.php?s=<cocktail_code>
 - Доступные cocktail_code: margarita, mojito, a1, kir
 
 Функциональные требования:
