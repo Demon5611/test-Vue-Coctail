@@ -1,4 +1,4 @@
-// store.js
+
 import { defineStore } from 'pinia';
 import { reactive } from 'vue';
 import axios from 'axios';
@@ -12,7 +12,6 @@ export const useCocktailStore = defineStore('cocktail', {
       try {
         const response = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${cocktailCode}`);
         const data = response.data;
-        console.log('data===>', data);
         if (data.drinks && data.drinks.length > 0) {
           this.cocktails = reactive(data.drinks);
         } else {

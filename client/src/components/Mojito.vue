@@ -1,23 +1,32 @@
 <template>
     <div>
-        <h1 @click="reloadCocktails('mojito')">Mojito: {{ form.data?.strDrink }}</h1>
+        <h1 @click="reloadCocktails('mojito')">{{ form.data?.strDrink }}</h1>
 
 <div v-if="form.data && Object.keys(form.data).length > 0">
-  <p v-if="form.data.strCategory">Category: {{ form.data.strCategory }}</p>
+<p v-if="form.data.strCategory">{{ form.data.strCategory }}</p>
 </div>
-
-<div>
-  <img v-if="form.data && form.data.strDrinkThumb" :src="form.data.strDrinkThumb" alt="Mojito Thumbnail" />
+<div v-if="form.data && Object.keys(form.data).length > 0">
+<p v-if="form.data.strCategory">{{ form.data.strAlcoholic }}</p>
+</div>
+<div v-if="form.data && Object.keys(form.data).length > 0">
+<p v-if="form.data.strCategory">{{ form.data.strGlass }}</p>
+</div>
+<div v-if="form.data && Object.keys(form.data).length > 0">
+      <p v-if="form.data.strGlass">Instructions :{{ form.data.strInstructions }}</p>
 </div>
 
 <h3>List of Ingredients:</h3>
 <ul v-if="form.data && Object.keys(form.data).length > 0">
-  <li v-for="(measure, index) in ingredientMeasures" :key="index">
-    <span>measure:{{ measure }}</span>
-    <span>{{ form.data?.[`strIngredient${index + 1}`] }}</span>
-  </li>
+    <li v-for="(measure, index) in ingredientMeasures" :key="index">
+        <span>measure:{{  index + 1  }}</span>
+        <span>{{ form.data?.[`strIngredient${index + 1}`] }}</span>
+    </li>
 </ul>
-    </div>
+</div>
+
+<div class="thumbnail-container">
+  <img v-if="form.data && form.data.strDrinkThumb" :src="form.data.strDrinkThumb" alt="Mojito Thumbnail" />
+</div>
   </template>
   
   <script setup>
@@ -34,17 +43,11 @@ import { useCocktailStore } from '../stores/store';
     },
   });
   
-  console.log('Form initial:', form);
+
   
   onMounted(async () => {
   await cocktailStore.fetchCocktails('mojito');
   Object.assign(form.value.data, cocktailStore.cocktails[0]);
-
-  // Обновляем данные формы только если есть коктейли
-//   if (cocktailStore.cocktails.length > 0) {
-//     // Присваиваем массив коктейлей в форму
-//     form.value.data = { ...cocktailStore.cocktails };
-//   }
 });
   
 const ingredientMeasures = computed(() => {
@@ -61,20 +64,11 @@ const ingredientMeasures = computed(() => {
   
   watch(() => form.value.data, (newData) => {
     console.log('Form data updated Mojito:', newData);
-  });
-  
+  });  
 
   const reloadCocktails = async () => {
   await cocktailStore.fetchCocktails();
-
-  // Убеждаемся, что есть коктейли в массиве
-  if (cocktailStore.cocktails.length > 0) {
-    // Обновляем данные формы только если есть коктейли
-    form.value.data = { ...cocktailStore.cocktails[1] };
-    console.log('Cocktail Mojito after reloadCocktails==>:', form.value.data);
-  } else {
-    console.error('No cocktails found');
-  }
+form.value.data = { ...cocktailStore.cocktails[0] };
 };
   </script>
   

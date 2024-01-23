@@ -1,10 +1,7 @@
-<script setup>
-
-</script>
-
 <template>
-    <div class="container">
-      <ul class="list-pages">
+  <div class="container">
+    <div class="list-pages">
+      <ul>
         <li>
           <router-link to="/Margarita">Margarita</router-link>
         </li>
@@ -18,75 +15,57 @@
           <router-link to="/Kir">Kir</router-link>
         </li>
       </ul>
-  
-      <router-view></router-view>
     </div>
-  </template>
+
+    <router-view></router-view>
+  </div>
+</template>
 
 <style scoped>
-
-.container{
-    height: 600px;
-    width: 1024px;
-    background-color: bisque;
-    border: 1px solid black; 
-    box-sizing: border-box; 
+.container {
+  display: flex;
+  height: 600px;
+  width: 1024px;
+  background-color: bisque;
+  border: 1px solid black;
+  box-sizing: border-box;
+  position: relative; /* Добавьте позиционирование для использования z-index */
 }
+
 .list-pages {
-    height: 100%;
-    width: 25%;
-    list-style: none;
-    padding: 0;    
+  flex: 1;
+  padding: 5%;
+  border: 1px solid black;
+
 }
 
-ul{
-    margin-top: 10%;
-    margin-left: 10%;
-    text-decoration-line: none;
+ul {
+  list-style: none;
+  padding: 0;
 }
+
 ul li a {
-    text-decoration: none; /* Убираем подчеркивание ссылок */
-    color: inherit; /* Наследуем цвет текста от родительского элемента */
+  text-decoration: none;
+  color: inherit;
 }
-.list-pages li {
 
-    transition: background-color 0.3s ease; 
+.list-pages li {
+  transition: background-color 0.3s ease;
 }
 
 .list-pages li:hover {
-    background-color: rgba(128, 128, 128, 0.5);
+  background-color: rgba(128, 128, 128, 0.5);
 }
 
-
-
-
-
-
-
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
+.cocktail-page {
+  flex: 1;
+  margin: 5%;
+  margin-right: 30%;
+  position: relative;
+  background-image: url("background-image-url.jpg"); /* Замените на URL вашего фонового изображения */
+  background-size: cover;
+  background-position: center;
+  color: rgb(5, 5, 5); /* Добавьте белый цвет текста для лучшей видимости */
+  overflow: auto; /* Добавьте прокрутку, если содержимое страницы превышает высоту */
 }
 </style>
