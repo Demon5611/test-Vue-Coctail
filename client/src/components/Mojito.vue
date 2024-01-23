@@ -1,33 +1,34 @@
 <template>
-    <div>
+    <div class="cocktail-page">
         <h1 @click="reloadCocktails('mojito')">{{ form.data?.strDrink }}</h1>
+        <br />
+        <div v-if="form.data && Object.keys(form.data).length > 0">
+            <p v-if="form.data.strCategory">{{ form.data.strCategory }}</p>
+        </div>
+        <div v-if="form.data && Object.keys(form.data).length > 0">
+            <p v-if="form.data.strCategory">{{ form.data.strAlcoholic }}</p>
+        </div>
+        <div v-if="form.data && Object.keys(form.data).length > 0">
+            <p v-if="form.data.strCategory">{{ form.data.strGlass }}</p>
+        </div>
+        <br />
+        <div v-if="form.data && Object.keys(form.data).length > 0">
+            <p v-if="form.data.strGlass">Instructions :{{ form.data.strInstructions }}</p>
+        </div>
+        <br />
+        <h3>List of Ingredients:</h3>
+        <ul v-if="form.data && Object.keys(form.data).length > 0">
+            <li v-for="(measure, index) in ingredientMeasures" :key="index">
+                <span>measure:{{  index + 1  }}</span>
+                <span>{{ form.data?.[`strIngredient${index + 1}`] }}</span>
+            </li>
+        </ul>
+    </div>
 
-<div v-if="form.data && Object.keys(form.data).length > 0">
-<p v-if="form.data.strCategory">{{ form.data.strCategory }}</p>
-</div>
-<div v-if="form.data && Object.keys(form.data).length > 0">
-<p v-if="form.data.strCategory">{{ form.data.strAlcoholic }}</p>
-</div>
-<div v-if="form.data && Object.keys(form.data).length > 0">
-<p v-if="form.data.strCategory">{{ form.data.strGlass }}</p>
-</div>
-<div v-if="form.data && Object.keys(form.data).length > 0">
-      <p v-if="form.data.strGlass">Instructions :{{ form.data.strInstructions }}</p>
-</div>
-
-<h3>List of Ingredients:</h3>
-<ul v-if="form.data && Object.keys(form.data).length > 0">
-    <li v-for="(measure, index) in ingredientMeasures" :key="index">
-        <span>measure:{{  index + 1  }}</span>
-        <span>{{ form.data?.[`strIngredient${index + 1}`] }}</span>
-    </li>
-</ul>
-</div>
-
-<div class="thumbnail-container">
-  <img v-if="form.data && form.data.strDrinkThumb" :src="form.data.strDrinkThumb" alt="Mojito Thumbnail" />
-</div>
-  </template>
+    <div class="thumbnail-container">
+        <img v-if="form.data && form.data.strDrinkThumb" :src="form.data.strDrinkThumb" alt="Mojito Thumbnail" />
+    </div>
+</template>
   
   <script setup>
   import { computed, onMounted, ref, watch } from 'vue';

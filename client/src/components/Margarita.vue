@@ -1,34 +1,35 @@
 <template>
-  <div class="cocktail-page">
-    <h1 @click="reloadCocktails('margarita')">{{ form.data?.strDrink }}</h1>
+    <div class="cocktail-page">
+        <h1 @click="reloadCocktails('margarita')">{{ form.data?.strDrink }}</h1>
+        <br />
+        <div v-if="form.data && Object.keys(form.data).length > 0">
+            <p v-if="form.data.strCategory">Category: {{ form.data.strCategory }}</p>
+        </div>
 
-    <div v-if="form.data && Object.keys(form.data).length > 0">
-      <p v-if="form.data.strCategory">Category: {{ form.data.strCategory }}</p>
-    </div>
+        <div v-if="form.data && Object.keys(form.data).length > 0">
+            <p v-if="form.data.strAlcoholic">{{ form.data.strAlcoholic }}</p>
+        </div>
 
-    <div v-if="form.data && Object.keys(form.data).length > 0">
-      <p v-if="form.data.strAlcoholic">{{ form.data.strAlcoholic }}</p>
-    </div>
-
-    <div v-if="form.data && Object.keys(form.data).length > 0">
-      <p v-if="form.data.strGlass">{{ form.data.strGlass }}</p>
-    </div>
-
-    <div v-if="form.data && Object.keys(form.data).length > 0">
-      <p v-if="form.data.strGlass">Instructions :{{ form.data.strInstructions }}</p>
-    </div>    
-    <h3>List of Ingredients:</h3>
-    <ul v-if="form.data && Object.keys(form.data).length > 0">
-      <li v-for="(measure, index) in ingredientMeasures" :key="index">
-        <span>Measure {{ index + 1 }}:</span>
-        <span>{{ measure }}</span>
-      </li>
-    </ul>
+        <div v-if="form.data && Object.keys(form.data).length > 0">
+            <p v-if="form.data.strGlass">{{ form.data.strGlass }}</p>
+        </div>
+        <br />
+        <div v-if="form.data && Object.keys(form.data).length > 0">
+            <p v-if="form.data.strGlass">Instructions :{{ form.data.strInstructions }}</p>
+        </div>    
+        <br />
+        <h3>List of Ingredients:</h3>
+        <ul v-if="form.data && Object.keys(form.data).length > 0">
+            <li v-for="(measure, index) in ingredientMeasures" :key="index">
+                <span>Measure {{ index + 1 }}:</span>
+                <span>{{ measure }}</span>
+            </li>
+        </ul>
     
-  </div>
-  <div class="thumbnail-container">
-    <img v-if="form.data && form.data.strDrinkThumb" :src="form.data.strDrinkThumb" alt="Margarita Thumbnail" />
-  </div>
+    </div>
+    <div class="thumbnail-container">
+        <img v-if="form.data && form.data.strDrinkThumb" :src="form.data.strDrinkThumb" alt="Margarita Thumbnail" />
+    </div>
 </template>
 
 <script setup>

@@ -1,7 +1,7 @@
 
+import axios from 'axios';
 import { defineStore } from 'pinia';
 import { reactive } from 'vue';
-import axios from 'axios';
 
 export const useCocktailStore = defineStore('cocktail', {
   state: () => ({
