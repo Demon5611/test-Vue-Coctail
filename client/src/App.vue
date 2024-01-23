@@ -6,7 +6,7 @@ import PageForm from './components/PageForm.vue'
 <template> 
 
   
-      <PageForm />
+    <PageForm />
 
 
 </template>

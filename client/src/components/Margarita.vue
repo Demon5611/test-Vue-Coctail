@@ -74,29 +74,3 @@ const reloadCocktails = async () => {
   form.value.data = { ...cocktailStore.cocktails[0] };
 };
 </script>
-
-<style>
-.cocktail-page {
-  width: 30%;;
-  margin-top: 5%;
-  margin-left: 10%;
-  margin-right: 40%;
-  position: relative;
-}
-
-.thumbnail-container {
-  position: absolute;
-  top: 10%;
-  right: 10%;
-  width: 200px;
-  height: 200px;
-  z-index: 1; /* Установите значение z-index для поднятия над контентом */
-}
-
-.thumbnail-container img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; 
-}
-
-</style>
