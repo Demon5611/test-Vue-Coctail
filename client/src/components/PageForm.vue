@@ -21,6 +21,10 @@
     </div>
 </template>
 
+<script setup>
+</script>
+
+
 <style scoped>
 .container {
   display: flex;
@@ -67,5 +71,15 @@ ul li a {
   background-position: center;
   color: rgb(5, 5, 5); /* Добавьте белый цвет текста для лучшей видимости */
   overflow: auto; /* Добавьте прокрутку, если содержимое страницы превышает высоту */
+}
+
+.page-404 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  font-size: 24px;
+  color: red;
 }
 </style>
