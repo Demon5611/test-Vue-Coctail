@@ -8,9 +8,9 @@ export const useCocktailStore = defineStore('cocktail', {
     cocktails: reactive([]),
   }),
   actions: {
-    async fetchCocktails() {
+    async fetchCocktails(cocktailCode) {
       try {
-        const response = await axios.get('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita');
+        const response = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${cocktailCode}`);
         const data = response.data;
         console.log('data===>', data);
         if (data.drinks && data.drinks.length > 0) {
@@ -24,3 +24,4 @@ export const useCocktailStore = defineStore('cocktail', {
     },
   },
 });
+

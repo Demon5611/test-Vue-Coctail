@@ -1,13 +1,13 @@
 <template>
   <div>
-<h1 @click="reloadCocktails">Margarita: {{ form.data?.strDrink }}</h1>
+<h1 @click="reloadCocktails('margarita')">Margarita: {{ form.data?.strDrink }}</h1>
 
 <div v-if="form.data && Object.keys(form.data).length > 0">
 <p v-if="form.data.strCategory">Category: {{ form.data.strCategory }}</p>
 </div>
 
 <div>
-<img v-if="form.data && form.data.strDrinkThumb" :src="form.data.strDrinkThumb" alt="Mojito Thumbnail" />
+<img v-if="form.data && form.data.strDrinkThumb" :src="form.data.strDrinkThumb" alt="Margarita Thumbnail" />
 </div>
 
 <h3>List of Ingredients:</h3>
@@ -34,13 +34,11 @@ const form = ref({
   },
 });
 
-console.log('Form initial:', form);
+console.log('Form initial Margarita:', form);
 
 onMounted(async () => {
-await cocktailStore.fetchCocktails();
-console.log('Mojito after fetch:', cocktailStore.cocktails);
-// Обновляем данные таким образом, чтобы не терять Proxy
-Object.assign(form.value.data, cocktailStore.cocktails[0]);
+  await cocktailStore.fetchCocktails('margarita'); // Инициализация с начальным напитком (может быть изменено)
+  Object.assign(form.value.data, cocktailStore.cocktails[0]);
 });
 
 const ingredientMeasures = computed(() => {

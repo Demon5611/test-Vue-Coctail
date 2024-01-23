@@ -1,6 +1,6 @@
 <template>
     <div>
-<h1 @click="reloadCocktails">Mojito: {{ form.data?.strDrink }}</h1>
+        <h1 @click="reloadCocktails('mojito')">Mojito: {{ form.data?.strDrink }}</h1>
 
 <div v-if="form.data && Object.keys(form.data).length > 0">
   <p v-if="form.data.strCategory">Category: {{ form.data.strCategory }}</p>
@@ -37,35 +37,30 @@ import { useCocktailStore } from '../stores/store';
   console.log('Form initial:', form);
   
   onMounted(async () => {
-  await cocktailStore.fetchCocktails();
-  console.log('Mojito after fetch:', cocktailStore.cocktails);
+  await cocktailStore.fetchCocktails('mojito');
+  Object.assign(form.value.data, cocktailStore.cocktails[0]);
 
   // Обновляем данные формы только если есть коктейли
-  if (cocktailStore.cocktails.length > 0) {
-    // Присваиваем массив коктейлей в форму
-    form.value.data = { ...cocktailStore.cocktails };
-  }
+//   if (cocktailStore.cocktails.length > 0) {
+//     // Присваиваем массив коктейлей в форму
+//     form.value.data = { ...cocktailStore.cocktails };
+//   }
 });
   
 const ingredientMeasures = computed(() => {
   const measures = [];
-  const firstCocktail = form.value.data[1];
-
-  if (firstCocktail) {
-    for (let i = 1; i <= 15; i++) {
-      const measure = firstCocktail[`strMeasure${i}`];
-      const ingredient = firstCocktail[`strIngredient${i}`];
-      if (measure && ingredient) {
-        measures.push(`${measure} ${ingredient}`);
-      }
+  for (let i = 1; i <= 15; i++) {
+    const measure = form.value.data?.[`strMeasure${i}`];
+    const ingredient = form.value.data?.[`strIngredient${i}`];
+    if (measure && ingredient) {
+      measures.push(`${measure} ${ingredient}`);
     }
   }
-
   return measures;
 });
   
   watch(() => form.value.data, (newData) => {
-    console.log('Form data updated:', newData);
+    console.log('Form data updated Mojito:', newData);
   });
   
 
@@ -76,7 +71,7 @@ const ingredientMeasures = computed(() => {
   if (cocktailStore.cocktails.length > 0) {
     // Обновляем данные формы только если есть коктейли
     form.value.data = { ...cocktailStore.cocktails[1] };
-    console.log('Cocktail after reloadCocktails==>:', form.value.data);
+    console.log('Cocktail Mojito after reloadCocktails==>:', form.value.data);
   } else {
     console.error('No cocktails found');
   }
