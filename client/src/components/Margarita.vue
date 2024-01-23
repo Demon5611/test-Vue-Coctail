@@ -28,7 +28,7 @@
     
     </div>
     <div class="thumbnail-container">
-        <img v-if="form.data && form.data.strDrinkThumb" :src="form.data.strDrinkThumb" alt="Margarita Thumbnail" />
+        <img v-if="form.data && form.data.strDrinkThumb" :src="form.data.strDrinkThumb" alt="Margarita Thumbnail" loading="lazy" />
     </div>
 </template>
 

@@ -67,3 +67,23 @@
     font-size: 24px;
     color: red;
 }
+
+@media only screen and (min-width: 600px) {
+    .container {
+      max-width: 600px;
+    }
+  }
+  
+  @media only screen and (min-width: 768px) {
+    .container {
+    max-width: 768px;   
+    font-size: small;
+    
+    }
+  }
+  
+  @media only screen and (min-width: 1024px) {
+    .container {
+      max-width: 1024px;
+    }
+  }

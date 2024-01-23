@@ -7,6 +7,10 @@ import NotFound from '../components/Page404.vue';
 
 const routes = [
   {
+    path: '/',
+    redirect: '/Margarita',
+  },
+  {
     path: '/Margarita',
     name: 'Margarita',
     component: Margarita,
