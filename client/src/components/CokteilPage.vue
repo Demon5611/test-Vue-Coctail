@@ -1,11 +1,11 @@
 <template>
     <div class="cocktail-page">
-        <h1 @click="reloadCocktails('margarita')">{{ form.data?.strDrink }}</h1>
+        <h1>{{ form.data?.strDrink }}</h1>
         <br />
         <div v-if="form.data && Object.keys(form.data).length > 0">
             <p v-if="form.data.strCategory">Category: {{ form.data.strCategory }}</p>
         </div>
-
+  
         <div v-if="form.data && Object.keys(form.data).length > 0">
             <p v-if="form.data.strAlcoholic">{{ form.data.strAlcoholic }}</p>
         </div>
@@ -28,15 +28,17 @@
     
     </div>
     <div class="thumbnail-container">
-        <img v-if="form.data && form.data.strDrinkThumb" :src="form.data.strDrinkThumb" alt="Margarita Thumbnail" loading="lazy" />
+        <img v-if="form.data && form.data.strDrinkThumb" :src="form.data.strDrinkThumb" alt="coctail Thumbnail" loading="lazy" />
     </div>
 </template>
-
+  
 <script setup>
 import { computed, onMounted, ref, watch } from 'vue';
+import { useRoute } from 'vue-router';
 import { useCocktailStore } from '../stores/store';
 
 const cocktailStore = useCocktailStore();
+const route = useRoute();
 
 const form = ref({
   data: {
@@ -48,9 +50,11 @@ const form = ref({
   },
 });
 
-onMounted(async () => {
-  await cocktailStore.fetchCocktails('margarita');
-  Object.assign(form.value.data, cocktailStore.cocktails[0]);
+onMounted(reloadCocktails);
+
+watch(() => route.params.cocktailName, (newCocktailName) => {
+  console.log('New cocktail name:', newCocktailName);
+  reloadCocktails(newCocktailName);
 });
 
 const ingredientMeasures = computed(() => {
@@ -65,12 +69,16 @@ const ingredientMeasures = computed(() => {
   return measures;
 });
 
-watch(() => form.value.data, (newData) => {
-  console.log('Form data updated:', newData);
-});
+async function reloadCocktails(newCocktailName = 'margarita') {
+  console.log('Reloading cocktails for:', newCocktailName);
+  await cocktailStore.fetchCocktails(newCocktailName);
+  console.log('Fetched cocktails:', cocktailStore.cocktails);
+  
+  if (cocktailStore.cocktails.length > 0) {
+    Object.assign(form.value.data, cocktailStore.cocktails[0]);
+  } else {
+    console.error('No drinks found for the specified search term');
+  }
+}
 
-const reloadCocktails = async () => {
-  await cocktailStore.fetchCocktails();
-  form.value.data = { ...cocktailStore.cocktails[0] };
-};
 </script>
